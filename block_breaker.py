@@ -1,22 +1,27 @@
 import pygame
 import random
 import os
+import sys
 
 
 pygame.init()
 pygame.mixer.init()
 
 
-pygame.mixer.music.load("winterfest.mp3")
-pygame.mixer.music.set_volume(0.5)
-pygame.mixer.music.play(-1)
-
-
-
 #DISPLAY
 screen = pygame.display.set_mode((800,600))
 pygame.display.set_caption("Block Breaker")
 clock = pygame.time.Clock()
+
+
+#music 
+pygame.mixer.music.load("winterfest.mp3")
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1)
+
+#background picture
+bg_image = pygame.image.load("christmas_background1.jpg").convert()
+bg_image = pygame.transform.scale(bg_image, (800,600))
 
 
 
@@ -60,10 +65,10 @@ def move_paddle():
         keys = pygame.key.get_pressed()
 
         if keys [pygame.K_LEFT] and paddle.left > 0:
-            paddle.x -= 8
+            paddle.x -= 6
 
         if keys[pygame.K_RIGHT] and paddle.right < 800:
-            paddle.x += 8
+            paddle.x += 6
 
 
     #move ball
@@ -98,7 +103,7 @@ def check_bricks():
 
         #draw everything
 def draw_game():
-    screen.fill(BLACK)
+    screen.blit(bg_image,(0,0))
 
     pygame.draw.ellipse(screen,WHITE,ball)
     pygame.draw.rect(screen,BLUE,paddle)
@@ -106,7 +111,7 @@ def draw_game():
     for brick in bricks:
          pygame.draw.rect(screen,brick[1],brick[0])
 
-    #i used ai to help me make this
+    
     font = pygame.font.SysFont(None, 35)  
     text = font.render("Score: " + str(score), True, WHITE)
     screen.blit(text, (20,20))
@@ -121,7 +126,7 @@ running = True
 
 while running:
 
-    clock.tick(60)
+    clock.tick(120)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -141,6 +146,9 @@ while running:
     draw_game()
     pygame.display.flip()
     clock.tick(120)
+
+pygame.quit()
+sys.exit()
 
 
 
