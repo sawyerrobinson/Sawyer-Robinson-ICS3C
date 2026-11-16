@@ -5,31 +5,31 @@ import sys
 pygame.init()
 pygame.mixer.init()
 
-# DISPLAY
+#display
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Block Breaker")
 clock = pygame.time.Clock()
 
-# MUSIC
+#music
 pygame.mixer.music.load("winterfest.mp3")
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 
-# BACKGROUND PICTURE
+#background picture
 bg_image = pygame.image.load("christmas_background1.jpg").convert()
 bg_image = pygame.transform.scale(bg_image, (800, 600))
 
-# COLOURS
+#colours
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 RED = (200, 16, 46)
 GREEN = (40, 122, 63)
 
-# PADDLE
+#paddle
 paddle = pygame.Rect(340, 540, 120, 15)
 
-# BALL
+#ball
 ball = pygame.Rect(390, 400, 15, 15)
 ball_x = 4
 ball_y = -4
@@ -41,7 +41,7 @@ game_state = "playing"
 bricks = []
 
 
-# MOVE PADDLE
+#move paddle
 def move_paddle():
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and paddle.left > 0:
@@ -50,13 +50,13 @@ def move_paddle():
         paddle.x += 6
 
 
-# MOVE BALL
+#move ball
 def move_ball():
     global ball_x, ball_y
     ball.x += ball_x
     ball.y += ball_y
 
-    # Wall collisions
+    #wall collisions
     if ball.left <= 0 or ball.right >= 800:
         ball_x = -ball_x
     if ball.top <= 0:
@@ -67,7 +67,7 @@ def move_ball():
         ball_y = -abs(ball_y)
 
 
-# CHECK WHEN BRICKS ARE HIT
+#check when bricks are hit
 def check_bricks():
     global score, ball_y
     for item in bricks[:]:
@@ -105,7 +105,7 @@ def next_level():
     paddle.x = 340
 
 
-# DRAW EVERYTHING
+#draw everything
 def draw_game():
     screen.blit(bg_image, (0, 0))
     pygame.draw.ellipse(screen, WHITE, ball)
@@ -133,7 +133,7 @@ def draw_end_screen(title, message):
 
 create_first_level()
 
-# MAIN GAME LOOP
+#main game loop
 running = True
 while running:
     clock.tick(60)
@@ -157,7 +157,7 @@ while running:
                     create_first_level()
                     game_state = "playing"
 
-    # GAME LOGIC
+    #game logic
     if game_state == "playing":
         move_paddle()
         move_ball()
@@ -172,7 +172,7 @@ while running:
         if ball.bottom >= 600:
             game_state = "game_over"
 
-    # DRAWING
+    #draw
     if game_state == "playing":
         draw_game()
     elif game_state == "level_complete":
