@@ -151,8 +151,8 @@ while running:
                     level = 1
                     score = 0
                     ball.x, ball.y = 390, 400
-                    ball_x = 2
-                    ball_y = -2
+                    ball_x = 4
+                    ball_y = -4
                     paddle.x = 340
                     create_first_level()
                     game_state = "playing"
